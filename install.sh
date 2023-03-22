@@ -16,5 +16,5 @@ fn_exists() {
     return $?
 }
 
-fn_exists circleci_log && echo "Install succeeded" || echo "Error on bash-utils install"
+fn_exists circleci_log && echo "Successful installation of bash-utils" || echo "Error on bash-utils install"
 rm -rf "$INSTALL_PATH"
