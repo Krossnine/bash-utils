@@ -3,7 +3,7 @@
 INSTALL_PATH="$(mktemp -d)/bash-utils"
 git clone --quiet "https://github.com/Krossnine/bash-utils.git" "$INSTALL_PATH"
 
-FILENAMES=("circleci.sh" "aws_tfstate_cloudposse.sh")
+FILENAMES=("circleci.sh" "aws_tfstate.sh")
 
 for filename in "${FILENAMES[@]}"; do
   FILEPATH="$INSTALL_PATH/$filename"
