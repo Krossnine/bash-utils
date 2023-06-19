@@ -32,3 +32,27 @@ function ensure_in_array() {
       exit 1
   fi
 }
+
+#
+# Usage : ensure_parameter "$var" "$var should not be empty."
+#
+function ensure_parameter() {
+  local parameter=$1
+  local error_message=$2
+  if [ -z "$parameter" ]; then
+    echo "$error_message"
+    exit 1
+  fi
+}
+
+#
+# Usage : ensure_file_exists "/tmp/myFile" "file should exist."
+#
+function ensure_file_exists() {
+  local file_path=$1
+  local error_message=$2
+  if [ ! -f "$file_path" ]; then
+      echo "$error_message"
+      exit 1
+  fi
+}
