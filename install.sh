@@ -7,7 +7,6 @@ FILENAMES=("functions.sh" "circleci.sh" "aws_tfstate.sh" "condition.sh" "github.
 
 for filename in "${FILENAMES[@]}"; do
   FILEPATH="$INSTALL_PATH/$filename"
-  echo "Install $FILEPATH"
   source "$FILEPATH"
 done
 
