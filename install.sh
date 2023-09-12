@@ -3,13 +3,14 @@
 function install() {
   local INSTALL_PATH=${1:-./}
   FILENAMES=(
-    "functions.sh"
-    "circleci.sh"
     "aws_tfstate.sh"
+    "circleci.sh"
     "condition.sh"
-    "github.sh"
     "dir.sh"
     "env_var.sh"
+    "functions.sh"
+    "github.sh"
+    "teams.sh"
     "warmup.sh"
   )
   for filename in "${FILENAMES[@]}"; do
