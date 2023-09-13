@@ -4,7 +4,7 @@ function teams_request() {
   http_code=$(curl -s -L --write-out '%{http_code}' \
           --url "${url}" \
           -H "Content-Type: application/json" \
-          -d "${data}" \
+          -d "${data}" -o /dev/null \
   )
 
   if ((http_code < 200 || http_code > 299)); then
