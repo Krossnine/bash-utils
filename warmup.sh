@@ -36,12 +36,15 @@ function warmup_headless() {
   local device=${1:-"DESKTOP"}
   shift
   local urls=("$@")
+  mkdir -p screenshots && chmod ugo+w screenshots
+
   for i in "${urls[@]}"; do
     local URL=$i
     case $device in
       "MOBILE") window_size="412,732";;
       *) window_size="1200,800";;
     esac
+
     docker container run -it -d --rm -v $(pwd)/screenshots:/usr/src/app zenika/alpine-chrome:latest --no-sandbox --screenshot=screenshot.png --hide-scrollbars --window-size=$window_size "$URL"
 
     while inotifywait --timeout 2 --event create screenshots;
