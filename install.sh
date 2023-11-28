@@ -7,6 +7,7 @@ function install() {
     "circleci.sh"
     "condition.sh"
     "dir.sh"
+    "docker.sh"
     "env_var.sh"
     "functions.sh"
     "github.sh"
