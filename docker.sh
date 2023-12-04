@@ -1,3 +1,6 @@
+#!/bin/bash
+set -e
+
 function debug() {
   echo "[DEBUG] $1" >&2
 }
