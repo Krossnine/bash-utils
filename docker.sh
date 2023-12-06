@@ -2,7 +2,7 @@
 set -e
 
 function debug() {
-  echo "[DEBUG] $1" >&2
+  echo "[DOCKER] $1" >&2
 }
 
 function docker_container_create() {

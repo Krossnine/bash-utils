@@ -2,6 +2,7 @@
 
 SCRIPTS_FILENAMES=(
     "aws_assume_role.sh"
+    "aws_cloudfront.sh"
     "aws_tfstate.sh"
     "circleci.sh"
     "condition.sh"
