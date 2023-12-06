@@ -13,7 +13,7 @@ SCRIPTS_FILENAMES=(
     "teams.sh"
     "warmup.sh"
 )
-REMOTE_INSTALL_PREFIX="https://raw.githubusercontent.com/Krossnine/bash-utils/main"
+REMOTE_INSTALL_PREFIX="https://raw.githubusercontent.com/Krossnine/bash-utils/refacto/install"
 CHECK_INSTALL_FUNCTION=circleci_log
 
 function check_install() {
