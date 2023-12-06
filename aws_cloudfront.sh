@@ -13,4 +13,5 @@ function cloudfront_invalidate() {
   INVALIDATION_ID=$(jq -r '.Invalidation.Id' <<<"$response")
   aws cloudfront wait invalidation-completed --id "$INVALIDATION_ID" --distribution-id "$cloudfront_id"
   cloudfront_debug "End of cloudfront cache invalidation for $cloudfront_id with given paths:$paths"
+  echo "$INVALIDATION_ID"
 }
