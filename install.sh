@@ -15,7 +15,8 @@ SCRIPTS_FILENAMES=(
     "warmup.sh"
     "retry.sh"
 )
-REMOTE_INSTALL_PREFIX="https://raw.githubusercontent.com/Krossnine/bash-utils/main"
+REMOTE_BRANCH_NAME="main"
+REMOTE_INSTALL_PREFIX="https://raw.githubusercontent.com/Krossnine/bash-utils/$REMOTE_BRANCH_NAME"
 CHECK_INSTALL_FUNCTION=circleci_log
 
 function check_install() {
