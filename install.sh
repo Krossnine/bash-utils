@@ -13,6 +13,7 @@ SCRIPTS_FILENAMES=(
     "github.sh"
     "teams.sh"
     "warmup.sh"
+    "retry.sh"
 )
 REMOTE_INSTALL_PREFIX="https://raw.githubusercontent.com/Krossnine/bash-utils/main"
 CHECK_INSTALL_FUNCTION=circleci_log
