@@ -86,7 +86,7 @@ function github_commit_and_push() {
     git branch --set-upstream-to="origin/${branch}"
     git add . || true
     git commit -am "$message" || true
-    retry "github_push" 5 5
+    retry "github_push" 5 5 || true
   else
     github_log "Ignore commit and push (Empty branch parameter)"
   fi
