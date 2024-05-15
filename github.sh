@@ -72,6 +72,11 @@ function github_add_issue_comment() {
   github_request "POST" "$GITHUB_ENDPOINT" "$GITHUB_TOKEN" "$DATA_BODY"
 }
 
+function github_push() {
+  git pull --rebase
+  git push
+}
+
 function github_commit_and_push() {
   local branch=$1
   local message=$2
@@ -81,8 +86,7 @@ function github_commit_and_push() {
     git branch --set-upstream-to="origin/${branch}"
     git add . || true
     git commit -am "$message" || true
-    git pull --rebase || true
-    git push || true
+    retry "github_push" 5 5
   else
     github_log "Ignore commit and push (Empty branch parameter)"
   fi
