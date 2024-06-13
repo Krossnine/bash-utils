@@ -1,5 +1,6 @@
 #!/bin/bash
 
+BASH_INSTALL_DIRECTORY=${BASH_INSTALL_DIRECTORY:-/tmp/bash-utils}
 SCRIPTS_FILENAMES=(
     "aws_assume_role.sh"
     "aws_cloudfront.sh"
@@ -25,14 +26,20 @@ function check_install() {
 
 function source_remote_script() {
   local url=$1
-  tmp_file=$(mktemp)
-  http_code=$(curl -s --write-out '%{http_code}' --request "GET" --url "$url" -o "$tmp_file")
-  if ((http_code < 200 || http_code > 299)); then
-    echo "Skip remote install of $url"
-  else
-    # shellcheck disable=SC1090
-    echo "Remote install of $url" && source "$tmp_file"
+  local filename=$2
+  TARGET_FILENAME="$BASH_INSTALL_DIRECTORY/$filename"
+  if ! test -f "$TARGET_FILENAME"; then
+    mkdir -p "$BASH_INSTALL_DIRECTORY"
+    http_code=$(curl -s --write-out '%{http_code}' --request "GET" --url "$url" -o "$TARGET_FILENAME")
+    if ((http_code < 200 || http_code > 299)); then
+      echo "Could not download : $url"
+    else
+      # shellcheck disable=SC1090
+      echo "Download script : $url"
+    fi
   fi
+  # shellcheck disable=SC1090
+  source "$TARGET_FILENAME"
 }
 
 function __install() {
@@ -40,7 +47,7 @@ function __install() {
 
   for filename in "${SCRIPTS_FILENAMES[@]}"; do
     if [ "$remote_install" = true ] ; then
-      source_remote_script "$REMOTE_INSTALL_PREFIX/$filename"
+      source_remote_script "$REMOTE_INSTALL_PREFIX/$filename" "$filename"
     else
       # shellcheck disable=SC1090
       echo "Local install from $filename" && source "./$filename"
