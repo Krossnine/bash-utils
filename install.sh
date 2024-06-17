@@ -21,7 +21,7 @@ REMOTE_INSTALL_PREFIX="https://raw.githubusercontent.com/Krossnine/bash-utils/$R
 CHECK_INSTALL_FUNCTION=circleci_log
 
 function check_install() {
-  fn_exists $CHECK_INSTALL_FUNCTION && echo "Successful installation of bash-utils" || echo "Error on bash-utils install"
+  fn_exists $CHECK_INSTALL_FUNCTION || echo "Error on bash-utils install"
 }
 
 function source_remote_script() {
