@@ -1,6 +1,9 @@
 #!/bin/bash
 set -e
 
+CIRCLECI_POLL_INTERVAL=5  # seconds between two attempts
+CIRCLECI_POLL_TIMEOUT=120 # max total delay in seconds
+
 function circleci_request() {
   local METHOD=$1
   local URL=$2
@@ -37,8 +40,17 @@ function circleci_is_workflow_finished() {
 
 function circleci_get_pipeline_workflow_ids() {
   local PIPELINE_ID=$1
+  local START=$SECONDS
+  local response
   circleci_log "Get pipeline workflows for pipeline id = ${PIPELINE_ID}..."
-  response=$(circleci_request "GET" "https://circleci.com/api/v2/pipeline/$PIPELINE_ID/workflow")
+  until response=$(circleci_request "GET" "https://circleci.com/api/v2/pipeline/$PIPELINE_ID/workflow"); do
+    if ((SECONDS - START >= CIRCLECI_POLL_TIMEOUT)); then
+      circleci_log "Timeout after ${CIRCLECI_POLL_TIMEOUT}s waiting for workflows of pipeline id = ${PIPELINE_ID}"
+      return 1
+    fi
+    circleci_log "Workflows not available yet for pipeline id = ${PIPELINE_ID}, retrying in ${CIRCLECI_POLL_INTERVAL}s..."
+    sleep "$CIRCLECI_POLL_INTERVAL"
+  done
   jq -r '.items[].id' <<<"$response"
 }
 
